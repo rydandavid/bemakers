@@ -1,0 +1,82 @@
+BEMAKERS · SITIO WEB
+====================
+
+Sitio estático (HTML + CSS + JavaScript, sin instalaciones ni dependencias).
+Para verlo: abre index.html en el navegador. Para publicarlo: sube TODA la
+carpeta al hosting sin mover ni renombrar sus carpetas.
+
+Después de subir cambios, recarga con Ctrl+F5 para saltarte la caché.
+(Si cambias css/js, sube también el número ?v=... en index.html.)
+
+
+MAPA DE ARCHIVOS
+  index.html          Estructura, textos de la portada, redes y datos de compartir.
+  css/styles.css      Todos los estilos, ordenados por secciones (1 Base ... 9 Accesibilidad).
+  js/portafolio.js    Contenido editable: videos, fotos y marcas. (Es el único que
+                      necesitas tocar para actualizar el portafolio.)
+  js/main.js          Lógica y animaciones: portada, servicios, portafolio,
+                      reproductor y contacto.
+  assets/img          Logos, isotipos, íconos del círculo y foto de la introducción.
+  assets/fonts        BasicCommerce y Poppins.
+  assets/clientes     Logos blancos de las marcas de la cinta de la portada.
+  assets/portadas     Portadas de los videos.
+  assets/previews     Adelantos mudos de 6 s (se ven al pasar el mouse).
+  assets/fotos        Copias optimizadas de las fotografías.
+  assets/videos       (Opcional) Videos locales.
+
+
+CÓMO AGREGAR UN VIDEO (js/portafolio.js, lista PORTAFOLIO)
+  { titulo: "Reel de marca", marca: "Mi cliente", driveId: "ID_DE_DRIVE",
+    formato: "vertical", portada: "mi-reel.webp", preview: "mi-reel.mp4" },
+  - driveId: texto entre /d/ y /view del enlace del archivo en Google Drive.
+    El archivo debe estar compartido como "Cualquier persona con el enlace".
+  - formato: "horizontal" (16:9) o "vertical" (9:16). Se mezclan solos en un mosaico.
+  - portada: imagen en assets/portadas/. preview: MP4 en assets/previews/.
+  - Para un video local usa  archivo: "mi-video.mp4"  (carpeta assets/videos/)
+    en lugar de driveId.
+  - Cuida las comas, las comillas y las llaves { }.
+  Reproducción: en PC se abre en un visor dentro de la página; en celular y
+  pantallas de hasta 860 px se abre en Google Drive en otra pestaña.
+
+CÓMO AGREGAR UNA FOTO (lista FOTOS)
+  { archivo: "mi-foto.webp", driveId: "ID_DE_DRIVE", ratio: 1.5, titulo: "..." }
+  - archivo: copia en assets/fotos/ (tiene prioridad y carga más rápido).
+  - ratio: ancho / alto de la foto (vertical 2:3 = 0.6667, horizontal 3:2 = 1.5).
+
+CÓMO AGREGAR UNA MARCA A LA CINTA DE LA PORTADA (lista CLIENTES)
+  Logo blanco con fondo transparente (.webp o .png) en assets/clientes/ y una
+  línea nueva en la lista.
+
+
+DÓNDE CAMBIAR OTRAS COSAS
+  Datos de contacto (WhatsApp, correo, Instagram): js/main.js, constante WA y
+    función contact() (sección "7 Contacto"). Los logos de redes del pie están
+    en index.html (busca class="soc").
+  Texto de la introducción: index.html, class="intro-t".
+  Textos y título de cada servicio: js/main.js, objeto SERVICES (sección 4).
+  Opciones del formulario "Cotizar": js/main.js, lista CHIPS.
+  Colores y medidas base: css/styles.css, bloque :root (sección 1 Base).
+  Ancho máximo del portafolio: css/styles.css, regla .pw (1040 px).
+
+
+COMPORTAMIENTO
+  - Navegación: Inicio, Servicios (lista con las 4 disciplinas), Portafolio y
+    Escríbenos. Barra inferior con los 4 servicios.
+  - Servicios: Producción audiovisual, Fotografía comercial, Diseño y branding
+    y Marketing digital; cada una con su propia escena animada.
+  - Respeta "reducir movimiento" del sistema y el ahorro de datos.
+  - En celular cada pantalla cabe completa; Contacto tiene pestañas
+    "Contacto" y "Cotizar".
+
+
+ADELANTOS EN HD (opcional)
+  Si tienes el video original:
+    horizontal: ffmpeg -ss 5 -t 6 -i ORIGINAL.mp4 -an -vf "scale=1280:-2" -c:v libx264 -crf 24 -preset slow -movflags +faststart NOMBRE.mp4
+    vertical:   ffmpeg -ss 5 -t 6 -i ORIGINAL.mp4 -an -vf "scale=720:-2"  -c:v libx264 -crf 24 -preset slow -movflags +faststart NOMBRE.mp4
+  Guárdalo en assets/previews/ con el mismo nombre del actual.
+
+
+ARCHIVOS QUE YA NO SE USAN (puedes borrarlos con seguridad)
+  assets/img/icono-1.webp, icono-3.webp, icono-4.webp, icono-5.webp
+  assets/img/orbe-foto.webp, assets/img/servicios-foto.webp
+  favicon.png   (el sitio usa favicon.svg)
